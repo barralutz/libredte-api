@@ -47,3 +47,14 @@ RUN chown -R www-data:www-data /var/www/api \
 
 # Instalar dependencias con Composer
 RUN cd /var/www/api && composer install --no-dev --optimize-autoloader --no-interaction
+
+# Copiar el script de entrada
+COPY docker/php/entrypoint.sh /entrypoint.sh
+
+# Darle permisos de ejecución (así no necesitas chmod manual)
+RUN chmod +x /entrypoint.sh
+
+# Usar el script como punto de entrada
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["php-fpm"]
+
