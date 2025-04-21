@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+      - "8005:80"
+    volumes:
+      - ./api:/var/www/api
+    depends_on:
+      - php
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 256M
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - ./api:/var/www/api
+    working_dir: /var/www/api
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 512M

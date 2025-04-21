@@ -1,0 +1,32 @@
+{
+    "name": "mi-empresa/api-libredte",
+    "description": "API independiente para emitir documentos tributarios electrónicos con LibreDTE",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "slim/slim": "^4.0",
+        "slim/psr7": "^1.5",
+        "nyholm/psr7": "^1.5",
+        "nyholm/psr7-server": "^1.0",
+        "php-di/php-di": "^6.4 || ^7.0",
+        "libredte/libredte-lib-core": "^24.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "config": {
+        "process-timeout": 600,
+        "optimize-autoloader": true
+    },
+    "scripts": {
+        "start": "php -S localhost:8005 -t . index.php",
+        "post-install-cmd": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-update-cmd": [
+             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+    }
+}
